@@ -7,10 +7,14 @@ import Box from './Box'
 import CustomBox from './CustomBox'
 
 const styles = {
-  imgContainer: {
-    userSelect: 'none',
+  root: {
     position: 'relative',
-    maxWidth: '100%',
+  },
+  glassPanel: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    userSelect: 'none',
   },
   img: {
     maxWidth: '100%',
@@ -155,16 +159,7 @@ class Picture extends React.Component {
     } = this.state
 
     return (
-      <div
-        className={classnames(classes.imgContainer, {
-          [classes.editable]: editable,
-        })}
-        onPointerDown={this._onPointerDown}
-        onPointerUp={this._onPointerUp}
-        onPointerMove={this._onPointerMove}
-        onPointerLeave={this._onPointerLeave}
-        style={{ width, height }}
-      >
+      <div className={classes.root}>
         <img
           className={classes.img}
           draggable={false}
@@ -173,25 +168,36 @@ class Picture extends React.Component {
           onLoad={this._onLoad}
           ref={this.imageRef}
         />
-        {imgLoaded &&
-          showBoxes &&
-          detections
-            .filter(({ score }) => score > threshold)
-            .map(({ box }, index) => (
-              <Box key={index} {...box} width={width} height={height} />
-            ))}
-        {customBoxes.map((box, index) => (
-          <Box
-            key={index}
-            {...box}
-            width={width}
-            height={height}
-            onRemove={this._removeCustomBox(index)}
-          />
-        ))}
-        {mouseDown &&
-          currentBox.x1 &&
-          currentBox.y1 && <CustomBox {...currentBox} />}
+        <div
+          className={classnames(classes.glassPanel, {
+            [classes.editable]: editable,
+          })}
+          onPointerDown={this._onPointerDown}
+          onPointerUp={this._onPointerUp}
+          onPointerMove={this._onPointerMove}
+          onPointerLeave={this._onPointerLeave}
+          style={{ width, height }}
+        >
+          {imgLoaded &&
+            showBoxes &&
+            detections
+              .filter(({ score }) => score > threshold)
+              .map(({ box }, index) => (
+                <Box key={index} {...box} width={width} height={height} />
+              ))}
+          {customBoxes.map((box, index) => (
+            <Box
+              key={index}
+              {...box}
+              width={width}
+              height={height}
+              onRemove={this._removeCustomBox(index)}
+            />
+          ))}
+          {mouseDown &&
+            currentBox.x1 &&
+            currentBox.y1 && <CustomBox {...currentBox} />}
+        </div>
       </div>
     )
   }
