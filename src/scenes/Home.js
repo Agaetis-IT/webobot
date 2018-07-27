@@ -21,7 +21,8 @@ class Home extends Component {
             key={picture.id}
             {...picture}
             showBoxes
-            threshold={process.env.REACT_APP_THRESHOLD}
+            threshold={Number(process.env.REACT_APP_THRESHOLD)}
+            editable
           />
         ))}
       </Fragment>

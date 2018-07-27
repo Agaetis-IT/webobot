@@ -1,21 +1,35 @@
 import React from 'react'
 import propTypes from 'prop-types'
+import classnames from 'classnames'
 import { getPictureUrl } from 'services/mediobot'
 import { withStyles } from '@material-ui/core'
 import Box from './Box'
+import CustomBox from './CustomBox'
 
 const styles = {
   root: {},
   imgContainer: {
     position: 'relative',
   },
-  img: {},
+  img: {
+    userSelect: 'none',
+    pointerEvents: 'none',
+  },
+  editable: {
+    cursor: 'crosshair',
+  },
 }
 
 class Picture extends React.Component {
   state = {
     width: 0,
     height: 0,
+    customBoxes: [],
+  }
+
+  constructor(props) {
+    super(props)
+    this.containerRef = React.createRef()
   }
 
   _onLoad = ({ target: img }) =>
@@ -24,13 +38,49 @@ class Picture extends React.Component {
       width: img.offsetWidth,
     })
 
+  _onPointerDown = ({ clientX, clientY }) => {
+    const { offsetLeft, offsetTop } = this.containerRef.current
+    this.setState({ x0: clientX - offsetLeft, y0: clientY - offsetTop })
+  }
+
+  _onPointerUp = ({ clientX, clientY }) => {
+    const { offsetLeft, offsetTop } = this.containerRef.current
+    this.setState(({ customBoxes, x0, y0 }) => ({
+      customBoxes: [
+        ...customBoxes,
+        {
+          x0,
+          y0,
+          x1: clientX - offsetLeft,
+          y1: clientY - offsetTop,
+        },
+      ],
+    }))
+  }
+
   render() {
-    const { classes, id, author, detections, showBoxes, threshold } = this.props
-    const { width, height } = this.state
+    const {
+      classes,
+      id,
+      author,
+      detections,
+      showBoxes,
+      threshold,
+      editable,
+    } = this.props
+    const { width, height, customBoxes } = this.state
 
     return (
       <div className={classes.root}>
-        <div className={classes.imgContainer} style={{ width, height }}>
+        <div
+          className={classnames(classes.imgContainer, {
+            [classes.editable]: editable,
+          })}
+          onPointerDown={this._onPointerDown}
+          onPointerUp={this._onPointerUp}
+          ref={this.containerRef}
+          style={{ width, height }}
+        >
           <img
             className={classes.img}
             src={getPictureUrl(id)}
@@ -43,6 +93,7 @@ class Picture extends React.Component {
               .map(({ box }, index) => (
                 <Box key={index} {...box} width={width} height={height} />
               ))}
+          {customBoxes.map((box, index) => <CustomBox key={index} {...box} />)}
         </div>
         <p>Detections : {detections.length}</p>
       </div>
@@ -56,6 +107,7 @@ Picture.propTypes = {
   author: propTypes.string.isRequired,
   threshold: propTypes.number,
   showBoxes: propTypes.bool,
+  editable: propTypes.bool,
   detections: propTypes.arrayOf(
     propTypes.shape({
       box: propTypes.shape({
