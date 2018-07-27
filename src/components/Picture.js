@@ -82,6 +82,17 @@ class Picture extends React.Component {
     this.setState({ mouseDown: false })
   }
 
+  _onPointerLeave = () =>
+    this.setState({
+      mouseDown: false,
+      currentBox: {
+        x0: null,
+        x1: null,
+        y0: null,
+        y1: null,
+      },
+    })
+
   _removeCustomBox = index => () => {
     this.setState(({ customBoxes }) => ({
       customBoxes: customBoxes.filter((_, i) => i !== index),
@@ -116,6 +127,7 @@ class Picture extends React.Component {
           onPointerDown={this._onPointerDown}
           onPointerUp={this._onPointerUp}
           onPointerMove={this._onPointerMove}
+          onPointerLeave={this._onPointerLeave}
           ref={this.containerRef}
           style={{ width, height }}
         >
