@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { withStyles, Icon, Button } from '@material-ui/core'
+import { withStyles } from '@material-ui/core'
 import memoizeOne from 'memoize-one'
 
 const styles = {
@@ -9,11 +9,6 @@ const styles = {
     borderColor: 'red',
     borderStyle: 'solid',
     borderWidth: 2,
-  },
-  iconBtn: {
-    position: 'absolute',
-    right: -20,
-    top: -20,
   },
 }
 
@@ -28,7 +23,7 @@ class CustomBox extends React.Component {
   })
 
   render() {
-    const { classes, x0, x1, y0, y1, current, onRemove } = this.props
+    const { classes, x0, x1, y0, y1 } = this.props
 
     return (
       <div
@@ -39,21 +34,7 @@ class CustomBox extends React.Component {
           x1,
           y1,
         })}
-      >
-        {!current && (
-          <Button
-            variant="fab"
-            mini
-            color="secondary"
-            aria-label="Remove"
-            className={classes.iconBtn}
-            onClick={onRemove}
-            onPointerDown={e => e.stopPropagation()}
-          >
-            <Icon>close</Icon>
-          </Button>
-        )}
-      </div>
+      />
     )
   }
 }

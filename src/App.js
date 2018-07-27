@@ -1,8 +1,17 @@
 import React, { Fragment } from 'react'
-import { CssBaseline, MuiThemeProvider } from '@material-ui/core'
+import { CssBaseline, MuiThemeProvider, withStyles } from '@material-ui/core'
 import Routes from './Routes'
 import theme from './theme'
 import Header from 'components/Header'
+
+const styles = {
+  '@global': {
+    '#root': {
+      minWidth: '100vw',
+      minHeight: '100vh',
+    },
+  },
+}
 
 const App = () => (
   <Fragment>
@@ -14,4 +23,4 @@ const App = () => (
   </Fragment>
 )
 
-export default App
+export default withStyles(styles)(App)

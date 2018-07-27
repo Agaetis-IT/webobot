@@ -7,13 +7,13 @@ import Box from './Box'
 import CustomBox from './CustomBox'
 
 const styles = {
-  root: {},
   imgContainer: {
+    userSelect: 'none',
     position: 'relative',
+    maxWidth: '100%',
   },
   img: {
-    userSelect: 'none',
-    pointerEvents: 'none',
+    maxWidth: '100%',
   },
   editable: {
     cursor: 'crosshair',
@@ -23,8 +23,8 @@ const styles = {
 class Picture extends React.Component {
   state = {
     imgLoaded: false,
-    width: 0,
-    height: 0,
+    width: '100%',
+    height: '100%',
     customBoxes: [],
     currentBox: {
       x0: null,
@@ -36,7 +36,23 @@ class Picture extends React.Component {
 
   constructor(props) {
     super(props)
-    this.containerRef = React.createRef()
+    this.imageRef = React.createRef()
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this._onResize)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize)
+  }
+
+  _onResize = () => {
+    const { offsetHeight, offsetWidth } = this.imageRef.current
+    this.setState({
+      height: offsetHeight,
+      width: offsetWidth,
+    })
   }
 
   _onLoad = ({ target: img }) =>
@@ -47,12 +63,12 @@ class Picture extends React.Component {
     })
 
   _onPointerDown = ({ clientX, clientY }) => {
-    const { offsetLeft, offsetTop } = this.containerRef.current
+    const { left, top } = this.imageRef.current.getBoundingClientRect()
     this.setState({
       mouseDown: true,
       currentBox: {
-        x0: clientX - offsetLeft,
-        y0: clientY - offsetTop,
+        x0: clientX - left,
+        y0: clientY - top,
         x1: null,
         y1: null,
       },
@@ -61,12 +77,12 @@ class Picture extends React.Component {
 
   _onPointerMove = ({ clientX, clientY }) => {
     if (this.state.mouseDown) {
-      const { offsetLeft, offsetTop } = this.containerRef.current
+      const { left, top } = this.imageRef.current.getBoundingClientRect()
       this.setState(({ currentBox }) => ({
         currentBox: {
           ...currentBox,
-          x1: clientX - offsetLeft,
-          y1: clientY - offsetTop,
+          x1: clientX - left,
+          y1: clientY - top,
         },
       }))
     }
@@ -77,11 +93,26 @@ class Picture extends React.Component {
     return Math.abs(x0 - x1) * Math.abs(y0 - y1)
   }
 
+  _getTfCoord = () => {
+    const { width, height, currentBox } = this.state
+    const { x0, x1, y0, y1 } = currentBox
+    const left = x1 < x0 ? x1 : x0
+    const top = y1 < y0 ? y1 : y0
+    const right = x1 > x0 ? x1 : x0
+    const bottom = y1 > y0 ? y1 : y0
+
+    const topLeftX = left / width
+    const topLeftY = top / height
+    const bottomRightX = right / width
+    const bottomRightY = bottom / height
+    return { topLeftX, topLeftY, bottomRightX, bottomRightY }
+  }
+
   _onPointerUp = () => {
     const { currentBox } = this.state
     if (currentBox.x1 && currentBox.y1 && this._getCurrentBoxArea() > 1000) {
-      this.setState(({ customBoxes, currentBox }) => ({
-        customBoxes: [...customBoxes, currentBox],
+      this.setState(({ customBoxes }) => ({
+        customBoxes: [...customBoxes, this._getTfCoord()],
       }))
     }
     this.setState({ mouseDown: false })
@@ -124,43 +155,43 @@ class Picture extends React.Component {
     } = this.state
 
     return (
-      <div className={classes.root}>
-        <div
-          className={classnames(classes.imgContainer, {
-            [classes.editable]: editable,
-          })}
-          onPointerDown={this._onPointerDown}
-          onPointerUp={this._onPointerUp}
-          onPointerMove={this._onPointerMove}
-          onPointerLeave={this._onPointerLeave}
-          ref={this.containerRef}
-          style={{ width, height }}
-        >
-          <img
-            className={classes.img}
-            src={getPictureUrl(id)}
-            alt={author}
-            onLoad={this._onLoad}
+      <div
+        className={classnames(classes.imgContainer, {
+          [classes.editable]: editable,
+        })}
+        onPointerDown={this._onPointerDown}
+        onPointerUp={this._onPointerUp}
+        onPointerMove={this._onPointerMove}
+        onPointerLeave={this._onPointerLeave}
+        style={{ width, height }}
+      >
+        <img
+          className={classes.img}
+          draggable={false}
+          src={getPictureUrl(id)}
+          alt={author}
+          onLoad={this._onLoad}
+          ref={this.imageRef}
+        />
+        {imgLoaded &&
+          showBoxes &&
+          detections
+            .filter(({ score }) => score > threshold)
+            .map(({ box }, index) => (
+              <Box key={index} {...box} width={width} height={height} />
+            ))}
+        {customBoxes.map((box, index) => (
+          <Box
+            key={index}
+            {...box}
+            width={width}
+            height={height}
+            onRemove={this._removeCustomBox(index)}
           />
-          {imgLoaded &&
-            showBoxes &&
-            detections
-              .filter(({ score }) => score > threshold)
-              .map(({ box }, index) => (
-                <Box key={index} {...box} width={width} height={height} />
-              ))}
-          {customBoxes.map((box, index) => (
-            <CustomBox
-              key={index}
-              {...box}
-              onRemove={this._removeCustomBox(index)}
-            />
-          ))}
-          {mouseDown &&
-            currentBox.x1 &&
-            currentBox.y1 && <CustomBox {...currentBox} current />}
-        </div>
-        <p>Detections : {detections.length}</p>
+        ))}
+        {mouseDown &&
+          currentBox.x1 &&
+          currentBox.y1 && <CustomBox {...currentBox} />}
       </div>
     )
   }

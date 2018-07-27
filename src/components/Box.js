@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { withStyles } from '@material-ui/core'
+import { Icon, Button, withStyles } from '@material-ui/core'
 import memoizeOne from 'memoize-one'
 
 const styles = {
@@ -9,6 +9,11 @@ const styles = {
     borderColor: 'red',
     borderStyle: 'solid',
     borderWidth: 2,
+  },
+  iconBtn: {
+    position: 'absolute',
+    right: -20,
+    top: -20,
   },
 }
 
@@ -32,6 +37,7 @@ class Box extends React.Component {
       bottomRightY,
       topLeftX,
       topLeftY,
+      onRemove,
     } = this.props
 
     return (
@@ -45,7 +51,21 @@ class Box extends React.Component {
           topLeftX,
           topLeftY,
         })}
-      />
+      >
+        {' '}
+        {onRemove && (
+          <Button
+            variant="fab"
+            mini
+            color="secondary"
+            aria-label="Remove"
+            className={classes.iconBtn}
+            onClick={onRemove}
+          >
+            <Icon>close</Icon>
+          </Button>
+        )}
+      </div>
     )
   }
 }
@@ -58,6 +78,7 @@ Box.propTypes = {
   bottomRightY: propTypes.number.isRequired,
   topLeftX: propTypes.number.isRequired,
   topLeftY: propTypes.number.isRequired,
+  onRemove: propTypes.func,
 }
 
 export default withStyles(styles)(Box)
