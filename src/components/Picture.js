@@ -25,6 +25,12 @@ class Picture extends React.Component {
     width: 0,
     height: 0,
     customBoxes: [],
+    currentBox: {
+      x0: null,
+      x1: null,
+      y0: null,
+      y1: null,
+    },
   }
 
   constructor(props) {
@@ -40,22 +46,38 @@ class Picture extends React.Component {
 
   _onPointerDown = ({ clientX, clientY }) => {
     const { offsetLeft, offsetTop } = this.containerRef.current
-    this.setState({ x0: clientX - offsetLeft, y0: clientY - offsetTop })
+    this.setState({
+      mouseDown: true,
+      currentBox: {
+        x0: clientX - offsetLeft,
+        y0: clientY - offsetTop,
+        x1: null,
+        y1: null,
+      },
+    })
   }
 
-  _onPointerUp = ({ clientX, clientY }) => {
-    const { offsetLeft, offsetTop } = this.containerRef.current
-    this.setState(({ customBoxes, x0, y0 }) => ({
-      customBoxes: [
-        ...customBoxes,
-        {
-          x0,
-          y0,
+  _onPointerMove = ({ clientX, clientY }) => {
+    if (this.state.mouseDown) {
+      const { offsetLeft, offsetTop } = this.containerRef.current
+      this.setState(({ currentBox }) => ({
+        currentBox: {
+          ...currentBox,
           x1: clientX - offsetLeft,
           y1: clientY - offsetTop,
         },
-      ],
-    }))
+      }))
+    }
+  }
+
+  _onPointerUp = () => {
+    const { currentBox } = this.state
+    if (currentBox.x1 && currentBox.y1) {
+      this.setState(({ customBoxes, currentBox }) => ({
+        customBoxes: [...customBoxes, currentBox],
+      }))
+    }
+    this.setState({ mouseDown: false })
   }
 
   render() {
@@ -68,7 +90,7 @@ class Picture extends React.Component {
       threshold,
       editable,
     } = this.props
-    const { width, height, customBoxes } = this.state
+    const { width, height, customBoxes, currentBox, mouseDown } = this.state
 
     return (
       <div className={classes.root}>
@@ -78,6 +100,7 @@ class Picture extends React.Component {
           })}
           onPointerDown={this._onPointerDown}
           onPointerUp={this._onPointerUp}
+          onPointerMove={this._onPointerMove}
           ref={this.containerRef}
           style={{ width, height }}
         >
@@ -94,6 +117,9 @@ class Picture extends React.Component {
                 <Box key={index} {...box} width={width} height={height} />
               ))}
           {customBoxes.map((box, index) => <CustomBox key={index} {...box} />)}
+          {mouseDown &&
+            currentBox.x1 &&
+            currentBox.y1 && <CustomBox {...currentBox} />}
         </div>
         <p>Detections : {detections.length}</p>
       </div>

@@ -8,7 +8,7 @@ const styles = {
     position: 'absolute',
     borderColor: 'red',
     borderStyle: 'solid',
-    borderWidth: 1,
+    borderWidth: 2,
   },
 }
 
