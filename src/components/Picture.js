@@ -22,6 +22,7 @@ const styles = {
 
 class Picture extends React.Component {
   state = {
+    imgLoaded: false,
     width: 0,
     height: 0,
     customBoxes: [],
@@ -42,6 +43,7 @@ class Picture extends React.Component {
     this.setState({
       height: img.offsetHeight,
       width: img.offsetWidth,
+      imgLoaded: true,
     })
 
   _onPointerDown = ({ clientX, clientY }) => {
@@ -80,6 +82,12 @@ class Picture extends React.Component {
     this.setState({ mouseDown: false })
   }
 
+  _removeCustomBox = index => () => {
+    this.setState(({ customBoxes }) => ({
+      customBoxes: customBoxes.filter((_, i) => i !== index),
+    }))
+  }
+
   render() {
     const {
       classes,
@@ -90,7 +98,14 @@ class Picture extends React.Component {
       threshold,
       editable,
     } = this.props
-    const { width, height, customBoxes, currentBox, mouseDown } = this.state
+    const {
+      width,
+      height,
+      customBoxes,
+      currentBox,
+      mouseDown,
+      imgLoaded,
+    } = this.state
 
     return (
       <div className={classes.root}>
@@ -110,16 +125,23 @@ class Picture extends React.Component {
             alt={author}
             onLoad={this._onLoad}
           />
-          {showBoxes &&
+          {imgLoaded &&
+            showBoxes &&
             detections
               .filter(({ score }) => score > threshold)
               .map(({ box }, index) => (
                 <Box key={index} {...box} width={width} height={height} />
               ))}
-          {customBoxes.map((box, index) => <CustomBox key={index} {...box} />)}
+          {customBoxes.map((box, index) => (
+            <CustomBox
+              key={index}
+              {...box}
+              onRemove={this._removeCustomBox(index)}
+            />
+          ))}
           {mouseDown &&
             currentBox.x1 &&
-            currentBox.y1 && <CustomBox {...currentBox} />}
+            currentBox.y1 && <CustomBox {...currentBox} current />}
         </div>
         <p>Detections : {detections.length}</p>
       </div>
