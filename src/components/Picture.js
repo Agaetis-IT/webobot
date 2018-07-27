@@ -72,9 +72,14 @@ class Picture extends React.Component {
     }
   }
 
+  _getCurrentBoxArea = () => {
+    const { x0, x1, y0, y1 } = this.state.currentBox
+    return Math.abs(x0 - x1) * Math.abs(y0 - y1)
+  }
+
   _onPointerUp = () => {
     const { currentBox } = this.state
-    if (currentBox.x1 && currentBox.y1) {
+    if (currentBox.x1 && currentBox.y1 && this._getCurrentBoxArea() > 1000) {
       this.setState(({ customBoxes, currentBox }) => ({
         customBoxes: [...customBoxes, currentBox],
       }))
