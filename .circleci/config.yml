@@ -1,0 +1,23 @@
+version: 2
+jobs:
+  build:
+    branches:
+      only: master
+
+    docker: 
+      - image: docker:18.06.0-ce-git
+      
+    steps:
+      - checkout
+
+      # Enable Docker build and push
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      # Build Docker image
+      - run: docker build -t agaetisit/webobot:latest .
+
+      # Push Docker image
+      - run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PWD
+          docker push agaetisit/webobot:latest
