@@ -48,6 +48,7 @@ class CustomBox extends React.Component {
             aria-label="Remove"
             className={classes.iconBtn}
             onClick={onRemove}
+            onPointerDown={e => e.stopPropagation()}
           >
             <Icon>close</Icon>
           </Button>
