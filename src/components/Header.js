@@ -28,8 +28,8 @@ const styles = {
 }
 
 const menu = [
-  { name: 'Le projet', href: '/' },
-  { name: 'Contribuer', href: '/' },
+  { name: 'Le projet', href: '/project' },
+  { name: 'Contribuer', href: '/contribute' },
 ]
 
 class Header extends React.Component {
