@@ -32,10 +32,8 @@ class DownArrow extends Component {
   render() {
     const { classes, ...props } = this.props
     return (
-      <div className={classes.container}>
-        <Icon className={classes.arrow} {...props}>
-          expand_more
-        </Icon>
+      <div className={classes.container} {...props}>
+        <Icon className={classes.arrow}>expand_more</Icon>
       </div>
     )
   }
