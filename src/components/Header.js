@@ -57,7 +57,7 @@ class Header extends React.Component {
             <Hidden smDown implementation="css">
               {menu.map(({ name, href }) => (
                 <Link key={name} to={href}>
-                  <Button>{name}t</Button>
+                  <Button>{name}</Button>
                 </Link>
               ))}
             </Hidden>
