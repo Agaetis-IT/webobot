@@ -11,6 +11,7 @@ COPY . .
 
 # Install all dependencies of the current project.
 RUN yarn install
+RUN yarn build
 
-ENTRYPOINT yarn build && serve -s -p 3000 build
+ENTRYPOINT serve -s -p 3000 build
 EXPOSE 3000
