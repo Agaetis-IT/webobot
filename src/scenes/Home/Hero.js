@@ -5,6 +5,7 @@ import hero from 'images/hero.png'
 import DownArrow from './DownArrow'
 import { compose } from 'recompose'
 import withScrollManager from 'enhancers/withScrollManager'
+import { Link } from 'react-router-dom'
 
 const styles = theme => ({
   hero: {
@@ -61,9 +62,11 @@ class Hero extends Component {
           >
             Apportez votre bloc à l’édifice !
           </Typography>
-          <Button variant="contained" color="secondary">
-            DÉMARRER
-          </Button>
+          <Link to="/contribute">
+            <Button variant="contained" color="secondary">
+              DÉMARRER
+            </Button>
+          </Link>
         </div>
         <DownArrow onClick={this.onDownArrowClick} />
       </div>
