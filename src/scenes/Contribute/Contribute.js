@@ -4,13 +4,12 @@ import { Button, Icon, MobileStepper, withStyles } from '@material-ui/core'
 import SwipeableViews from 'react-swipeable-views'
 import Container from 'components/Container'
 import HowMany from './HowMany'
+import WhatColor from './WhatColor'
+import HasElbowRest from './HasElbowRest'
 
 const styles = {
   stepper: {
     marginBottom: 30,
-  },
-  slide: {
-    height: '100%',
   },
   fakeBtn: {
     width: 90,
@@ -52,15 +51,9 @@ class Contribute extends React.Component {
           nextButton={<div className={classes.fakeBtn} />}
         />
         <SwipeableViews index={step}>
-          <div className={classes.slide}>
-            <HowMany onNext={this.handleNext} />
-          </div>
-          <div className={classes.slide}>
-            <HowMany onNext={this.handleNext} />
-          </div>
-          <div className={classes.slide}>
-            <HowMany onNext={this.handleNext} />
-          </div>
+          <HowMany onNext={this.handleNext} />
+          <WhatColor onNext={this.handleNext} />
+          <HasElbowRest onNext={this.handleNext} />
         </SwipeableViews>
       </Container>
     )
