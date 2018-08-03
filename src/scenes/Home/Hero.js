@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import propTypes from 'prop-types'
 import { Button, Typography, withStyles } from '@material-ui/core'
-import hero from 'images/hero.png'
+import hero from 'images/hero.jpg'
 import DownArrow from './DownArrow'
 import { compose } from 'recompose'
 import withScrollManager from 'enhancers/withScrollManager'
 import { Link } from 'react-router-dom'
+import classNames from 'classnames'
 
 const styles = theme => ({
   hero: {
@@ -24,11 +25,18 @@ const styles = theme => ({
     height: '100%',
   },
   container: {
-    marginLeft: '10%',
+    marginLeft: '5%',
+    marginRight: '5%',
+  },
+  bold: {
+    fontWeight: 700,
   },
   txt: {
     textShadow: theme.shadows[24],
     marginBottom: 20,
+  },
+  startBtn: {
+    fontWeight: 700,
   },
 })
 
@@ -51,7 +59,7 @@ class Hero extends Component {
           <Typography
             variant="display2"
             color="primary"
-            className={classes.txt}
+            className={classNames(classes.txt, classes.bold)}
           >
             THE<br />MONOBLOC<br />PROJECT
           </Typography>
@@ -63,7 +71,12 @@ class Hero extends Component {
             Apportez votre bloc à l’édifice !
           </Typography>
           <Link to="/contribute">
-            <Button variant="contained" color="secondary">
+            <Button
+              variant="contained"
+              size="large"
+              color="secondary"
+              className={classes.startBtn}
+            >
               DÉMARRER
             </Button>
           </Link>

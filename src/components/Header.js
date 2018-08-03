@@ -16,16 +16,23 @@ import {
 } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 
-const styles = {
+const styles = theme => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   list: {
-    width: 300,
+    width: 330,
   },
-}
+  drawerHeader: {
+    backgroundColor: theme.palette.secondary.main,
+    paddingTop: 15,
+    paddingBottom: 15,
+    color: '#fff',
+    textAlign: 'center',
+  },
+})
 
 const menu = [
   { name: 'Le projet', href: '/project' },
@@ -70,23 +77,23 @@ class Header extends React.Component {
         </AppBar>
 
         <Drawer open={open} onClose={this.toggleDrawer(false)}>
-          <div
-            tabIndex={0}
-            role="button"
-            onClick={this.toggleDrawer(false)}
-            onKeyDown={this.toggleDrawer(false)}
-          >
-            <div className={classes.list}>
-              <List>
-                {menu.map(({ name, href }) => (
-                  <Link key={name} to={href}>
-                    <ListItem button>
-                      <ListItemText primary={name} />
-                    </ListItem>
-                  </Link>
-                ))}
-              </List>
-            </div>
+          <div className={classes.list}>
+            <Typography variant="title" className={classes.drawerHeader}>
+              The monobloc project
+            </Typography>
+            <List>
+              {menu.map(({ name, href }) => (
+                <Link key={name} to={href}>
+                  <ListItem
+                    button
+                    onClick={this.toggleDrawer(false)}
+                    onKeyDown={this.toggleDrawer(false)}
+                  >
+                    <ListItemText primary={name} />
+                  </ListItem>
+                </Link>
+              ))}
+            </List>
           </div>
         </Drawer>
       </Fragment>

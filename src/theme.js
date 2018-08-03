@@ -9,6 +9,7 @@ export default createMuiTheme({
     secondary: {
       ...secondary,
       main: secondary.A700,
+      contrastText: '#fff',
     },
   },
   typography: {
