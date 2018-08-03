@@ -21,4 +21,11 @@ export default createMuiTheme({
       fontSize: 16,
     },
   },
+  overrides: {
+    MuiMobileStepper: {
+      dotActive: {
+        backgroundColor: secondary.A700,
+      },
+    },
+  },
 })

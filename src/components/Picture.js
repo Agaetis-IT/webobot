@@ -142,6 +142,7 @@ class Picture extends React.Component {
   render() {
     const {
       classes,
+      className,
       id,
       author,
       detections,
@@ -159,7 +160,7 @@ class Picture extends React.Component {
     } = this.state
 
     return (
-      <div className={classes.root}>
+      <div className={classnames(classes.root, className)}>
         <img
           className={classes.img}
           draggable={false}
