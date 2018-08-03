@@ -6,6 +6,7 @@ const styles = {
   container: {
     width: '90%',
     margin: '80px auto',
+    maxWidth: 1280,
   },
 }
 
