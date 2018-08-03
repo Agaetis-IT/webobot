@@ -5,6 +5,10 @@ import { Facebook, Twitter } from 'mdi-material-ui'
 
 const styles = theme => ({
   footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: theme.palette.primary.main,

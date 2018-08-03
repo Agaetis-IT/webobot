@@ -11,6 +11,8 @@ const styles = {
   '@global': {
     '#root': {
       minHeight: '100vh',
+      height: '100%',
+      position: 'relative',
     },
     a: {
       color: 'inherit',
