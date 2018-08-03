@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { Button, withStyles } from '@material-ui/core'
+import { Button, Typography, withStyles } from '@material-ui/core'
 import Title from '../Home/Title'
 import { Link } from 'react-router-dom'
 
@@ -13,9 +13,18 @@ class Thanks extends React.Component {
     return (
       <div className={classes.root}>
         <Title>Merci</Title>
-        <Button onClick={onReset}>ANALYSER UNE AUTRE PHOTO</Button>
+
+        <Typography>
+          Grâce à vous, notre intelligence artificielle s’améliore !
+        </Typography>
+
+        <Button color="secondary" variant="contained" onClick={onReset}>
+          ANALYSER UNE AUTRE PHOTO
+        </Button>
         <Link to="/">
-          <Button>ÇA SUFFIT POUR AUJOURD&apos;HUI</Button>
+          <Button color="primary" variant="contained">
+            ÇA SUFFIT POUR AUJOURD&apos;HUI
+          </Button>
         </Link>
       </div>
     )
