@@ -1,18 +1,19 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { Button, Typography, withStyles } from '@material-ui/core'
+import { Typography, withStyles } from '@material-ui/core'
 import Picture from 'components/Picture'
 import Highlight from 'components/Highlight'
+import Choices from 'components/Choices'
 
 const styles = {
   root: {
     display: 'flex',
   },
-  title: {
-    width: '100%',
-    textAlign: 'center',
-  },
   form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
     width: '50%',
   },
   picture: {
@@ -31,7 +32,17 @@ class HowMany extends React.Component {
           <Typography variant="title" className={classes.title}>
             De quelle <Highlight>couleur</Highlight> est la chaise ?
           </Typography>
-          <Button onClick={onNext}>Suivant</Button>
+          <Choices
+            onChange={onNext}
+            items={[
+              { value: 'BLUE', label: 'BLEU' },
+              { value: 'WHITE', label: 'BLANC' },
+              { value: 'RED', label: 'ROUGE' },
+              { value: 'YELLOW', label: 'JAUNE' },
+              { value: 'GREEN', label: 'VERT' },
+              { value: 'OTHER', label: 'AUTRE' },
+            ]}
+          />
         </div>
       </div>
     )

@@ -1,18 +1,19 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { Button, Typography, withStyles } from '@material-ui/core'
+import { Typography, withStyles } from '@material-ui/core'
 import Picture from 'components/Picture'
 import Highlight from 'components/Highlight'
+import Choices from 'components/Choices'
 
 const styles = {
   root: {
     display: 'flex',
   },
-  title: {
-    width: '100%',
-    textAlign: 'center',
-  },
   form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
     width: '50%',
   },
   picture: {
@@ -22,7 +23,7 @@ const styles = {
 
 class HowMany extends React.Component {
   render() {
-    const { classes, onNext } = this.props
+    const { classes } = this.props
 
     return (
       <div className={classes.root}>
@@ -31,7 +32,12 @@ class HowMany extends React.Component {
           <Typography variant="title" className={classes.title}>
             Cette chaise possède-t-elle des <Highlight>accoudoirs</Highlight> ?
           </Typography>
-          <Button onClick={onNext}>Suivant</Button>
+          <Choices
+            items={[
+              { value: 'YES', label: 'OUI' },
+              { value: 'NO', label: 'NON' },
+            ]}
+          />
         </div>
       </div>
     )
@@ -40,7 +46,6 @@ class HowMany extends React.Component {
 
 HowMany.propTypes = {
   classes: propTypes.object.isRequired,
-  onNext: propTypes.func.isRequired,
 }
 
 export default withStyles(styles)(HowMany)
