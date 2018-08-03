@@ -24,7 +24,7 @@ const styles = {
 
 class HowMany extends React.Component {
   render() {
-    const { classes } = this.props
+    const { classes, onNext } = this.props
 
     return (
       <div className={classes.root}>
@@ -34,6 +34,7 @@ class HowMany extends React.Component {
             Cette chaise possède-t-elle des <Highlight>accoudoirs</Highlight> ?
           </Typography>
           <Choices
+            onChange={onNext}
             items={[
               { value: 'YES', label: 'OUI' },
               { value: 'NO', label: 'NON' },
@@ -47,6 +48,7 @@ class HowMany extends React.Component {
 
 HowMany.propTypes = {
   classes: propTypes.object.isRequired,
+  onNext: propTypes.func.isRequired,
 }
 
 export default withStyles(styles)(HowMany)
