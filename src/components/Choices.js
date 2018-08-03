@@ -18,11 +18,8 @@ class Choices extends React.Component {
 
   onClick = value => () => {
     const { onChange } = this.props
-    const { selectedValue } = this.state
-    if (value !== selectedValue) {
-      this.setState({ selectedValue: value })
-      onChange && onChange(value)
-    }
+    this.setState({ selectedValue: value })
+    onChange && onChange(value)
   }
 
   render() {
