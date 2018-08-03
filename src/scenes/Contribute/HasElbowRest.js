@@ -8,13 +8,14 @@ import Choices from 'components/Choices'
 const styles = {
   root: {
     display: 'flex',
+    justifyContent: 'space-between',
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',
-    width: '50%',
+    width: '45%',
   },
   picture: {
     width: '50%',
