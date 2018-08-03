@@ -3,6 +3,11 @@ import propTypes from 'prop-types'
 import { Button, withStyles } from '@material-ui/core'
 
 const styles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
   btn: {
     margin: 10,
   },
@@ -27,12 +32,13 @@ class Choices extends React.Component {
     const { selectedValue } = this.state
 
     return (
-      <div>
+      <div className={classes.root}>
         {items.map(({ value, label }) => (
           <Button
             key={value}
             color={value === selectedValue ? 'secondary' : 'primary'}
             variant="contained"
+            size="large"
             className={classes.btn}
             onClick={this.onClick(value)}
           >
