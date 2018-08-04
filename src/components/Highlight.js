@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { Typography, withStyles } from '@material-ui/core'
+import { withStyles } from '@material-ui/core'
 
 const styles = theme => ({
   span: {

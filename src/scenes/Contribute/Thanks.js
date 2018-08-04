@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import { Button, Typography, withStyles } from '@material-ui/core'
-import Title from '../Home/Title'
+import Title from 'components/Title'
 import { Link } from 'react-router-dom'
 
 const styles = {}
