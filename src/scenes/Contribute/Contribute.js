@@ -92,7 +92,7 @@ class Contribute extends React.Component {
           steps={9}
           activeStep={inStep}
           className={classNames(classes.stepper, {
-            [classes.invisible]: outStep === 0 || outStep === 2,
+            [classes.invisible]: outStep === 0 || inStep === 9,
           })}
           backButton={
             <Button
@@ -163,13 +163,14 @@ class Contribute extends React.Component {
                   setTag={this.handleSetTag}
                 />
                 <WhatIsThePosition
-                  onNext={this.handleOutStepNext}
+                  onNext={this.handleInStepNext}
                   setTag={this.handleSetTag}
                 />
+
+                <Thanks onReset={this.handleOutStepReset} />
               </SwipeableViews>
             </div>
           </div>
-          <Thanks onReset={this.handleOutStepReset} />
         </SwipeableViews>
       </Container>
     )
