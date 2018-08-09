@@ -9,6 +9,12 @@ import WhatColor from './WhatColor'
 import HasElbowRest from './HasElbowRest'
 import Thanks from './Thanks'
 import Intro from './Intro'
+import HowIsTheBack from './HowIsTheBack'
+import WhatIsItsShape from './WhatIsItsShape'
+import WhatIsItsCondition from './WhatIsItsCondition'
+import IsItCustomized from './IsItCustomized'
+import WhereIsIt from './WhereIsIt'
+import WhatIsThePosition from './WhatIsThePosition'
 
 const styles = {
   stepper: {
@@ -40,10 +46,10 @@ class Contribute extends React.Component {
         <MobileStepper
           variant="dots"
           position="static"
-          steps={3}
+          steps={9}
           activeStep={step - 1}
           className={classNames(classes.stepper, {
-            [classes.invisible]: step === 0 || step === 4,
+            [classes.invisible]: step === 0 || step === 10,
           })}
           backButton={
             <Button
@@ -62,6 +68,12 @@ class Contribute extends React.Component {
           <HowMany onNext={this.handleNext} />
           <WhatColor onNext={this.handleNext} />
           <HasElbowRest onNext={this.handleNext} />
+          <HowIsTheBack onNext={this.handleNext} />
+          <WhatIsItsShape onNext={this.handleNext} />
+          <WhatIsItsCondition onNext={this.handleNext} />
+          <IsItCustomized onNext={this.handleNext} />
+          <WhereIsIt onNext={this.handleNext} />
+          <WhatIsThePosition onNext={this.handleNext} />
           <Thanks onReset={this.handleReset} />
         </SwipeableViews>
       </Container>

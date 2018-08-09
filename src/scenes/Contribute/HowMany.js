@@ -12,7 +12,7 @@ class HowMany extends React.Component {
     return (
       <Layout
         Title={
-          <Typography variant="title">
+          <Typography variant="title" align="center">
             <Highlight>Combien</Highlight> de chaises y&apos;a-t-il sur la photo
             ?
           </Typography>
@@ -26,7 +26,7 @@ class HowMany extends React.Component {
             { value: 'THREE', label: '3' },
             { value: 'FOUR', label: '4' },
             { value: 'FIVE_OR_MORE', label: '5 OU PLUS' },
-            { value: 'NONE', label: 'AUCUN' },
+            { value: 'NONE', label: 'AUCUNE' },
           ]}
         />
       </Layout>

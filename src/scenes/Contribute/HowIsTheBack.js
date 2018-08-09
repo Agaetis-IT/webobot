@@ -5,7 +5,7 @@ import Highlight from 'components/Highlight'
 import Choices from 'components/Choices'
 import Layout from './Layout'
 
-class HasElbowRest extends React.Component {
+class HowIsTheBack extends React.Component {
   render() {
     const { onNext } = this.props
 
@@ -13,15 +13,19 @@ class HasElbowRest extends React.Component {
       <Layout
         Title={
           <Typography variant="title" align="center">
-            Cette chaise possède-t-elle des <Highlight>accoudoirs</Highlight> ?
+            Comment est constitué son <Highlight>dossier</Highlight> ?
           </Typography>
         }
       >
         <Choices
           onChange={onNext}
           items={[
-            { value: 'YES', label: 'OUI' },
-            { value: 'NO', label: 'NON' },
+            { value: 'FULL', label: 'PLEIN' },
+            { value: 'GROOVES', label: 'A RAINURES' },
+            { value: 'PATTERN', label: 'A MOTIFS' },
+            { value: 'MESSAGES', label: 'A MESSAGES' },
+            { value: 'CANE', label: 'CANNÉS' },
+            { value: 'NONE', label: 'NON VISIBLE' },
           ]}
         />
       </Layout>
@@ -29,8 +33,8 @@ class HasElbowRest extends React.Component {
   }
 }
 
-HasElbowRest.propTypes = {
+HowIsTheBack.propTypes = {
   onNext: propTypes.func.isRequired,
 }
 
-export default HasElbowRest
+export default HowIsTheBack
