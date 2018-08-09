@@ -6,9 +6,17 @@ import Choices from 'components/Choices'
 import Layout from './Layout'
 
 class WhatIsItsShape extends React.Component {
-  render() {
-    const { onNext } = this.props
+  onChange = (value, label) => {
+    const { onNext, setTag } = this.props
+    if (value !== 'NONE') {
+      setTag('WhatIsItsShape', label)
+    } else {
+      setTag('WhatIsItsShape', null)
+    }
+    onNext(value)
+  }
 
+  render() {
     return (
       <Layout
         Title={
@@ -18,7 +26,7 @@ class WhatIsItsShape extends React.Component {
         }
       >
         <Choices
-          onChange={onNext}
+          onChange={this.onChange}
           items={[
             { value: 'ROUND', label: 'ÉPAULES ARRONDIES' },
             { value: 'SQUARE', label: 'ÉPAULES CARRÉES' },
@@ -32,6 +40,7 @@ class WhatIsItsShape extends React.Component {
 
 WhatIsItsShape.propTypes = {
   onNext: propTypes.func.isRequired,
+  setTag: propTypes.func.isRequired,
 }
 
 export default WhatIsItsShape

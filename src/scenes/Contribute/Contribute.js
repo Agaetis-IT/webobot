@@ -56,7 +56,7 @@ const styles = theme => ({
     },
   },
   tags: {
-    height: 32,
+    minHeight: 64,
   },
 })
 

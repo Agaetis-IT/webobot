@@ -6,9 +6,17 @@ import Choices from 'components/Choices'
 import Layout from './Layout'
 
 class WhereIsIt extends React.Component {
-  render() {
-    const { onNext } = this.props
+  onChange = (value, label) => {
+    const { onNext, setTag } = this.props
+    if (value !== 'DONT_KNOW' && value !== 'OTHER') {
+      setTag('WhereIsIt', label)
+    } else {
+      setTag('WhereIsIt', null)
+    }
+    onNext(value)
+  }
 
+  render() {
     return (
       <Layout
         Title={
@@ -19,7 +27,7 @@ class WhereIsIt extends React.Component {
         }
       >
         <Choices
-          onChange={onNext}
+          onChange={this.onChange}
           items={[
             { value: 'GARDEN', label: 'JARDIN' },
             { value: 'TERRACE', label: 'BALCON OU TERRASSE' },
@@ -38,6 +46,7 @@ class WhereIsIt extends React.Component {
 
 WhereIsIt.propTypes = {
   onNext: propTypes.func.isRequired,
+  setTag: propTypes.func.isRequired,
 }
 
 export default WhereIsIt

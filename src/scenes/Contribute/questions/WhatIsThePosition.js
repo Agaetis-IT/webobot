@@ -6,9 +6,17 @@ import Choices from 'components/Choices'
 import Layout from './Layout'
 
 class WhatIsThePosition extends React.Component {
-  render() {
-    const { onNext } = this.props
+  onChange = (value, label) => {
+    const { onNext, setTag } = this.props
+    if (value !== 'DONT_KNOW' && value !== 'OTHER') {
+      setTag('WhatIsThePosition', label)
+    } else {
+      setTag('WhatIsThePosition', null)
+    }
+    onNext(value)
+  }
 
+  render() {
     return (
       <Layout
         Title={
@@ -19,7 +27,7 @@ class WhatIsThePosition extends React.Component {
         }
       >
         <Choices
-          onChange={onNext}
+          onChange={this.onChange}
           items={[
             { value: 'ALONE', label: 'CHAISE SEULE' },
             { value: 'DINNER', label: 'À TABLE' },
@@ -39,6 +47,7 @@ class WhatIsThePosition extends React.Component {
 
 WhatIsThePosition.propTypes = {
   onNext: propTypes.func.isRequired,
+  setTag: propTypes.func.isRequired,
 }
 
 export default WhatIsThePosition
