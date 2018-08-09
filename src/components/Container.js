@@ -9,7 +9,9 @@ const styles = {
     margin: 'auto',
     paddingTop: 90,
     paddingBottom: 150,
-    height: '100%',
+    alignSelf: 'stretch',
+    display: 'flex',
+    flexDirection: 'column',
   },
 }
 

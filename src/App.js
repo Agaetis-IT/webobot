@@ -13,6 +13,8 @@ const styles = {
       minHeight: '100vh',
       height: '100%',
       position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
     },
     a: {
       color: 'inherit',

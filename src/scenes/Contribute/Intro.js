@@ -11,6 +11,8 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     height: '100%',
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   headline: {
     height: '3em',
