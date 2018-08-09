@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import { IconButton, Icon, withStyles } from '@material-ui/core'
-import { Facebook, Twitter } from 'mdi-material-ui'
+import { Facebook, Instagram } from 'mdi-material-ui'
 
 const styles = theme => ({
   footer: {
@@ -22,13 +22,25 @@ const styles = theme => ({
 
 const Footer = ({ classes }) => (
   <div className={classes.footer}>
-    <IconButton href="mailto:contact@monobot.fr">
+    <IconButton
+      href="https://www.instagram.com/monoblocproject/?hl=fr"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Instagram />
+    </IconButton>
+    <IconButton
+      href="https://fr-fr.facebook.com/MonoblocProject/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <Facebook />
     </IconButton>
-    <IconButton href="mailto:contact@monobot.fr">
-      <Twitter />
-    </IconButton>
-    <IconButton href="mailto:contact@monobot.fr">
+    <IconButton
+      href="mailto:monoblocproject@gmail.com"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <Icon>mail_outline</Icon>
     </IconButton>
   </div>
