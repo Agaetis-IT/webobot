@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core'
-import secondary from '@material-ui/core/colors/teal'
+import secondary from '@material-ui/core/colors/grey'
 
 export default createMuiTheme({
   palette: {
@@ -8,7 +8,7 @@ export default createMuiTheme({
     },
     secondary: {
       ...secondary,
-      main: secondary.A700,
+      main: secondary[400],
       contrastText: '#fff',
     },
   },
