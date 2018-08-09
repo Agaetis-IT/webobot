@@ -28,6 +28,8 @@ const styles = theme => ({
   },
   picture: {
     width: '50%',
+    paddingLeft: 5,
+    paddingRight: 5,
     [theme.breakpoints.down('sm')]: {
       width: '100%',
     },
