@@ -6,9 +6,17 @@ import Choices from 'components/Choices'
 import Layout from './Layout'
 
 class WhatColor extends React.Component {
-  render() {
-    const { onNext } = this.props
+  onChange = (value, label) => {
+    const { onNext, setTag } = this.props
+    if (value !== 'OTHER') {
+      setTag('WhatColor', label)
+    } else {
+      setTag('WhatColor', null)
+    }
+    onNext(value)
+  }
 
+  render() {
     return (
       <Layout
         Title={
@@ -18,7 +26,7 @@ class WhatColor extends React.Component {
         }
       >
         <Choices
-          onChange={onNext}
+          onChange={this.onChange}
           items={[
             { value: 'BLUE', label: 'BLEU' },
             { value: 'WHITE', label: 'BLANC' },
@@ -35,6 +43,7 @@ class WhatColor extends React.Component {
 
 WhatColor.propTypes = {
   onNext: propTypes.func.isRequired,
+  setTag: propTypes.func.isRequired,
 }
 
 export default WhatColor

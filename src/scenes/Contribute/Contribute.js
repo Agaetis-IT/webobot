@@ -4,18 +4,19 @@ import classNames from 'classnames'
 import { Button, Icon, MobileStepper, withStyles } from '@material-ui/core'
 import SwipeableViews from 'react-swipeable-views'
 import Container from 'components/Container'
-import HowMany from './HowMany'
-import WhatColor from './WhatColor'
-import HasElbowRest from './HasElbowRest'
+import HowMany from './questions/HowMany'
+import WhatColor from './questions/WhatColor'
+import HasElbowRest from './questions/HasElbowRest'
 import Thanks from './Thanks'
 import Intro from './Intro'
-import HowIsTheBack from './HowIsTheBack'
-import WhatIsItsShape from './WhatIsItsShape'
-import WhatIsItsCondition from './WhatIsItsCondition'
-import IsItCustomized from './IsItCustomized'
-import WhereIsIt from './WhereIsIt'
-import WhatIsThePosition from './WhatIsThePosition'
+import HowIsTheBack from './questions/HowIsTheBack'
+import WhatIsItsShape from './questions/WhatIsItsShape'
+import WhatIsItsCondition from './questions/WhatIsItsCondition'
+import IsItCustomized from './questions/IsItCustomized'
+import WhereIsIt from './questions/WhereIsIt'
+import WhatIsThePosition from './questions/WhatIsThePosition'
 import Picture from 'components/Picture'
+import Tag from 'components/Tag'
 
 const styles = theme => ({
   stepper: {
@@ -54,12 +55,16 @@ const styles = theme => ({
       minHeight: 300,
     },
   },
+  tags: {
+    height: 32,
+  },
 })
 
 class Contribute extends React.Component {
   state = {
     outStep: 0,
     inStep: 0,
+    tags: {},
   }
 
   handleOutStepBack = () =>
@@ -71,10 +76,13 @@ class Contribute extends React.Component {
   handleInStepNext = () =>
     this.setState(({ inStep }) => ({ inStep: inStep + 1 }))
   handleOutStepReset = () => this.setState({ outStep: 1, inStep: 0 })
+  handleOutStepEnd = () => this.setState({ outStep: 2, inStep: 0 })
+  handleSetTag = (key, value) =>
+    this.setState(({ tags }) => ({ tags: { ...tags, [key]: value } }))
 
   render() {
     const { classes } = this.props
-    const { outStep, inStep } = this.state
+    const { outStep, inStep, tags } = this.state
 
     return (
       <Container>
@@ -107,22 +115,57 @@ class Contribute extends React.Component {
         >
           <Intro onNext={this.handleOutStepNext} />
           <div className={classes.innerRoot}>
-            <Picture className={classes.innerLeft} />
+            <div className={classes.innerLeft}>
+              <Picture />
+              <div className={classes.tags}>
+                {Object.values(tags)
+                  .filter(t => t)
+                  .map(t => <Tag key={t}>{t}</Tag>)}
+              </div>
+            </div>
             <div className={classes.innerRight}>
               <SwipeableViews
                 index={inStep}
                 style={{ height: '100%' }}
                 containerStyle={{ height: '100%' }}
               >
-                <HowMany onNext={this.handleInStepNext} />
-                <WhatColor onNext={this.handleInStepNext} />
-                <HasElbowRest onNext={this.handleInStepNext} />
-                <HowIsTheBack onNext={this.handleInStepNext} />
-                <WhatIsItsShape onNext={this.handleInStepNext} />
-                <WhatIsItsCondition onNext={this.handleInStepNext} />
-                <IsItCustomized onNext={this.handleInStepNext} />
-                <WhereIsIt onNext={this.handleInStepNext} />
-                <WhatIsThePosition onNext={this.handleOutStepNext} />
+                <HowMany
+                  onNext={this.handleInStepNext}
+                  onEndForm={this.handleOutStepEnd}
+                  setTag={this.handleSetTag}
+                />
+                <WhatColor
+                  onNext={this.handleInStepNext}
+                  setTag={this.handleSetTag}
+                />
+                <HasElbowRest
+                  onNext={this.handleInStepNext}
+                  setTag={this.handleSetTag}
+                />
+                <HowIsTheBack
+                  onNext={this.handleInStepNext}
+                  setTag={this.handleSetTag}
+                />
+                <WhatIsItsShape
+                  onNext={this.handleInStepNext}
+                  setTag={this.handleSetTag}
+                />
+                <WhatIsItsCondition
+                  onNext={this.handleInStepNext}
+                  setTag={this.handleSetTag}
+                />
+                <IsItCustomized
+                  onNext={this.handleInStepNext}
+                  setTag={this.handleSetTag}
+                />
+                <WhereIsIt
+                  onNext={this.handleInStepNext}
+                  setTag={this.handleSetTag}
+                />
+                <WhatIsThePosition
+                  onNext={this.handleOutStepNext}
+                  setTag={this.handleSetTag}
+                />
               </SwipeableViews>
             </div>
           </div>

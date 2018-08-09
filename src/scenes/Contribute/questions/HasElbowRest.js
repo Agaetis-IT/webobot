@@ -6,9 +6,17 @@ import Choices from 'components/Choices'
 import Layout from './Layout'
 
 class HasElbowRest extends React.Component {
-  render() {
-    const { onNext } = this.props
+  onChange = value => {
+    const { onNext, setTag } = this.props
+    if (value === 'YES') {
+      setTag('HasElbowRest', 'ACCOUDOIRS')
+    } else {
+      setTag('HasElbowRest', null)
+    }
+    onNext(value)
+  }
 
+  render() {
     return (
       <Layout
         Title={
@@ -18,7 +26,7 @@ class HasElbowRest extends React.Component {
         }
       >
         <Choices
-          onChange={onNext}
+          onChange={this.onChange}
           items={[
             { value: 'YES', label: 'OUI' },
             { value: 'NO', label: 'NON' },
@@ -31,6 +39,7 @@ class HasElbowRest extends React.Component {
 
 HasElbowRest.propTypes = {
   onNext: propTypes.func.isRequired,
+  setTag: propTypes.func.isRequired,
 }
 
 export default HasElbowRest

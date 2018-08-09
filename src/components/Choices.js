@@ -21,10 +21,10 @@ class Choices extends React.Component {
     }
   }
 
-  onClick = value => () => {
+  onClick = (value, label) => () => {
     const { onChange } = this.props
     this.setState({ selectedValue: value })
-    onChange && onChange(value)
+    onChange && onChange(value, label)
   }
 
   render() {
@@ -40,7 +40,7 @@ class Choices extends React.Component {
             variant="contained"
             size="large"
             className={classes.btn}
-            onClick={this.onClick(value)}
+            onClick={this.onClick(value, label)}
           >
             {label}
           </Button>

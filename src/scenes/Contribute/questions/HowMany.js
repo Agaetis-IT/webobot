@@ -6,9 +6,16 @@ import Choices from 'components/Choices'
 import Layout from './Layout'
 
 class HowMany extends React.Component {
-  render() {
-    const { onNext } = this.props
+  onChange = value => {
+    const { onNext, onEndForm } = this.props
+    if (value === 'NONE') {
+      onEndForm(value)
+    } else {
+      onNext(value)
+    }
+  }
 
+  render() {
     return (
       <Layout
         Title={
@@ -19,7 +26,7 @@ class HowMany extends React.Component {
         }
       >
         <Choices
-          onChange={onNext}
+          onChange={this.onChange}
           items={[
             { value: 'ONE', label: '1' },
             { value: 'TWO', label: '2' },
@@ -36,6 +43,7 @@ class HowMany extends React.Component {
 
 HowMany.propTypes = {
   onNext: propTypes.func.isRequired,
+  onEndForm: propTypes.func.isRequired,
 }
 
 export default HowMany
