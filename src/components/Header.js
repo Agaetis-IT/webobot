@@ -15,12 +15,29 @@ import {
   withStyles,
 } from '@material-ui/core'
 import { Link } from 'react-router-dom'
+import logoImg from 'images/logo.jpg'
 
 const styles = theme => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    height: 64,
+  },
+  titleContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  title: {
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 24,
+    },
+  },
+  logo: {
+    height: 28,
+    borderRadius: '50%',
+    marginRight: 5,
   },
   list: {
     width: 330,
@@ -59,7 +76,12 @@ class Header extends React.Component {
         <AppBar position="absolute" color="primary">
           <Toolbar className={classes.toolbar}>
             <Link to="/">
-              <Typography variant="title">The monobloc project</Typography>
+              <div className={classes.titleContainer}>
+                <img src={logoImg} alt="logo" className={classes.logo} />
+                <Typography variant="title" className={classes.title}>
+                  The monobloc project
+                </Typography>
+              </div>
             </Link>
             <Hidden smDown implementation="css">
               {menu.map(({ name, href }) => (
