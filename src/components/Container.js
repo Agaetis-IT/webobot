@@ -5,8 +5,10 @@ import { withStyles } from '@material-ui/core'
 const styles = {
   container: {
     width: '90%',
-    margin: '80px auto',
     maxWidth: 1280,
+    margin: 'auto',
+    paddingTop: 90,
+    paddingBottom: 150,
   },
 }
 
