@@ -11,7 +11,7 @@ const styles = theme => ({
     right: 0,
     display: 'flex',
     justifyContent: 'center',
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.common.white,
     paddingTop: 10,
     paddingRight: 15,
     paddingBottom: 10,

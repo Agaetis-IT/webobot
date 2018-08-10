@@ -74,7 +74,7 @@ class Intro extends React.Component {
 
         <Button
           onClick={onNext}
-          color="secondary"
+          color="primary"
           size="large"
           variant="contained"
         >

@@ -36,7 +36,7 @@ class Choices extends React.Component {
         {items.map(({ value, label }) => (
           <Button
             key={value}
-            color={value === selectedValue ? 'secondary' : 'primary'}
+            color={value === selectedValue ? 'secondary' : 'default'}
             variant="contained"
             size="large"
             className={classes.btn}

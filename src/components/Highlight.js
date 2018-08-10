@@ -9,7 +9,7 @@ const styles = theme => ({
   },
   background: {
     position: 'absolute',
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.A400,
     zIndex: -10,
     top: '0.4em',
     left: '0.2em',

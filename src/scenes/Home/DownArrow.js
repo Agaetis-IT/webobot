@@ -20,7 +20,7 @@ const styles = theme => ({
     bottom: 5,
     left: 0,
     fontSize: 64,
-    color: theme.palette.primary.main,
+    color: theme.palette.common.white,
     animationName: 'bounce',
     animationDuration: '1s',
     animationIterationCount: 'infinite',

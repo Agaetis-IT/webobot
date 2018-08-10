@@ -1,11 +1,10 @@
 import { createMuiTheme } from '@material-ui/core'
 import secondary from '@material-ui/core/colors/grey'
+import primary from '@material-ui/core/colors/teal'
 
 export default createMuiTheme({
   palette: {
-    primary: {
-      main: '#fff',
-    },
+    primary,
     secondary: {
       ...secondary,
       main: secondary[400],
@@ -22,9 +21,14 @@ export default createMuiTheme({
     },
   },
   overrides: {
-    MuiMobileStepper: {
-      dotActive: {
-        backgroundColor: secondary.A700,
+    MuiButton: {
+      contained: {
+        backgroundColor: '#fff',
+      },
+    },
+    MuiTypography: {
+      colorWhite: {
+        color: '#fff',
       },
     },
   },

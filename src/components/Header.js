@@ -46,7 +46,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.secondary.main,
     paddingTop: 15,
     paddingBottom: 15,
-    color: '#fff',
+    color: theme.palette.common.white,
     textAlign: 'center',
   },
 })
@@ -73,7 +73,7 @@ class Header extends React.Component {
 
     return (
       <Fragment>
-        <AppBar position="absolute" color="primary">
+        <AppBar position="absolute" color="white">
           <Toolbar className={classes.toolbar}>
             <Link to="/">
               <div className={classes.titleContainer}>

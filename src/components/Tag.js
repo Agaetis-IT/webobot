@@ -4,8 +4,8 @@ import { Typography, withStyles } from '@material-ui/core'
 
 const styles = theme => ({
   tag: {
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.secondary.contrastText,
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
     paddingTop: 1,
     paddingBottom: 1,
     paddingLeft: 8,

@@ -47,13 +47,11 @@ class Thanks extends React.Component {
           Grâce à vous, notre intelligence artificielle s’améliore !
         </Typography>
         <div className={classes.actions}>
-          <Button color="secondary" variant="contained" onClick={onReset}>
+          <Button color="primary" variant="contained" onClick={onReset}>
             ANALYSER UNE AUTRE PHOTO
           </Button>
           <Link to="/">
-            <Button color="primary" variant="contained">
-              ÇA SUFFIT POUR AUJOURD&apos;HUI
-            </Button>
+            <Button variant="contained">ÇA SUFFIT POUR AUJOURD&apos;HUI</Button>
           </Link>
         </div>
       </div>
