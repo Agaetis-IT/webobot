@@ -67,6 +67,11 @@ class Picture extends React.Component {
     })
 
   _onPointerDown = ({ clientX, clientY }) => {
+    const { disabled } = this.props
+    if (disabled) {
+      return
+    }
+
     const { left, top } = this.imageRef.current.getBoundingClientRect()
     this.setState({
       mouseDown: true,
@@ -80,6 +85,11 @@ class Picture extends React.Component {
   }
 
   _onPointerMove = ({ clientX, clientY }) => {
+    const { disabled } = this.props
+    if (disabled) {
+      return
+    }
+
     if (this.state.mouseDown) {
       const { left, top } = this.imageRef.current.getBoundingClientRect()
       this.setState(({ currentBox }) => ({
@@ -114,7 +124,11 @@ class Picture extends React.Component {
 
   _onPointerUp = () => {
     const { currentBox } = this.state
-    const { onlyOne } = this.props
+    const { disabled, onlyOne } = this.props
+    if (disabled) {
+      return
+    }
+
     if (currentBox.x1 && currentBox.y1 && this._getCurrentBoxArea() > 1000) {
       if (onlyOne) {
         this.setState({
@@ -129,7 +143,12 @@ class Picture extends React.Component {
     this.setState({ mouseDown: false })
   }
 
-  _onPointerLeave = () =>
+  _onPointerLeave = () => {
+    const { disabled } = this.props
+    if (disabled) {
+      return
+    }
+
     this.setState({
       mouseDown: false,
       currentBox: {
@@ -139,6 +158,7 @@ class Picture extends React.Component {
         y1: null,
       },
     })
+  }
 
   _removeCustomBox = index => () => {
     this.setState(({ customBoxes }) => ({
@@ -156,6 +176,7 @@ class Picture extends React.Component {
       showBoxes,
       threshold,
       editable,
+      disabled,
     } = this.props
     const {
       width,
@@ -199,6 +220,7 @@ class Picture extends React.Component {
               {...box}
               width={width}
               height={height}
+              disabled={disabled}
               onRemove={this._removeCustomBox(index)}
             />
           ))}
@@ -220,6 +242,7 @@ Picture.propTypes = {
   showBoxes: propTypes.bool,
   editable: propTypes.bool,
   onlyOne: propTypes.bool,
+  disabled: propTypes.bool,
   detections: propTypes.arrayOf(
     propTypes.shape({
       box: propTypes.shape({

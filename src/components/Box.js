@@ -38,6 +38,7 @@ class Box extends React.Component {
       topLeftX,
       topLeftY,
       onRemove,
+      disabled,
     } = this.props
 
     return (
@@ -52,19 +53,19 @@ class Box extends React.Component {
           topLeftY,
         })}
       >
-        {' '}
-        {onRemove && (
-          <Button
-            variant="fab"
-            mini
-            color="secondary"
-            aria-label="Remove"
-            className={classes.iconBtn}
-            onClick={onRemove}
-          >
-            <Icon>close</Icon>
-          </Button>
-        )}
+        {!disabled &&
+          onRemove && (
+            <Button
+              variant="fab"
+              mini
+              color="secondary"
+              aria-label="Remove"
+              className={classes.iconBtn}
+              onClick={onRemove}
+            >
+              <Icon>close</Icon>
+            </Button>
+          )}
       </div>
     )
   }
@@ -79,6 +80,7 @@ Box.propTypes = {
   topLeftX: propTypes.number.isRequired,
   topLeftY: propTypes.number.isRequired,
   onRemove: propTypes.func,
+  disabled: propTypes.bool,
 }
 
 export default withStyles(styles)(Box)
