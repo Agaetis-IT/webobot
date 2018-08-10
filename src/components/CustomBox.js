@@ -3,14 +3,14 @@ import propTypes from 'prop-types'
 import { withStyles } from '@material-ui/core'
 import memoizeOne from 'memoize-one'
 
-const styles = {
+const styles = theme => ({
   box: {
     position: 'absolute',
-    borderColor: 'red',
+    borderColor: theme.palette.primary.main,
     borderStyle: 'solid',
     borderWidth: 2,
   },
-}
+})
 
 class CustomBox extends React.Component {
   _computeStyle = memoizeOne(({ x0, y0, x1, y1 }) => {

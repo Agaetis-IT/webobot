@@ -3,10 +3,10 @@ import propTypes from 'prop-types'
 import { Icon, Button, withStyles } from '@material-ui/core'
 import memoizeOne from 'memoize-one'
 
-const styles = {
+const styles = theme => ({
   box: {
     position: 'absolute',
-    borderColor: 'red',
+    borderColor: theme.palette.primary.main,
     borderStyle: 'solid',
     borderWidth: 2,
   },
@@ -15,7 +15,7 @@ const styles = {
     right: -20,
     top: -20,
   },
-}
+})
 
 class Box extends React.Component {
   _computeStyle = memoizeOne(
