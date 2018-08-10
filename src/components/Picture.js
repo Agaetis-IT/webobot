@@ -186,7 +186,6 @@ class Picture extends React.Component {
       detections,
       showBoxes,
       threshold,
-      editable,
       disabled,
     } = this.props
     const {
@@ -210,7 +209,7 @@ class Picture extends React.Component {
         />
         <div
           className={classnames(classes.glassPanel, {
-            [classes.editable]: editable,
+            [classes.editable]: !disabled,
           })}
           onPointerDown={this._onPointerDown}
           onPointerUp={this._onPointerUp}
@@ -251,7 +250,6 @@ Picture.propTypes = {
   author: propTypes.string.isRequired,
   threshold: propTypes.number,
   showBoxes: propTypes.bool,
-  editable: propTypes.bool,
   onlyOne: propTypes.bool,
   disabled: propTypes.bool,
   onChange: propTypes.func,
