@@ -3,7 +3,6 @@ import propTypes from 'prop-types'
 import { Button, Typography, withStyles } from '@material-ui/core'
 import Title from 'components/Title'
 import { Link } from 'react-router-dom'
-import { Twemoji } from 'react-emoji-render'
 
 const styles = {
   root: {
@@ -13,12 +12,8 @@ const styles = {
     justifyContent: 'center',
     height: '100%',
   },
-  clap: {
-    fontSize: 64,
-    marginBottom: 10,
-  },
   title: {
-    fontSize: 42,
+    fontSize: 64,
     fontWeight: 700,
   },
   actions: {
@@ -40,7 +35,6 @@ class Thanks extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Twemoji text=":clap:" className={classes.clap} />
         <Title className={classes.title}>Merci</Title>
 
         <Typography>
