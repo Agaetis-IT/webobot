@@ -24,7 +24,7 @@ class Choices extends React.Component {
   onClick = (value, label) => () => {
     const { onChange } = this.props
     this.setState({ selectedValue: value })
-    onChange && onChange(value, label)
+    onChange(value, label)
   }
 
   render() {
@@ -59,6 +59,10 @@ Choices.propTypes = {
       label: propTypes.string.isRequired,
     })
   ).isRequired,
+}
+
+Choices.defaultProps = {
+  onChange: () => null,
 }
 
 export default withStyles(styles)(Choices)

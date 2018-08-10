@@ -66,8 +66,10 @@ class Contribute extends React.Component {
     outStep: 0,
     inStep: 0,
     tags: {},
+    boxes: [],
   }
 
+  handlePictureChange = boxes => this.setState({ boxes })
   handleOutStepBack = () =>
     this.setState(({ outStep }) => ({ outStep: outStep - 1 }))
   handleInStepBack = () =>
@@ -83,7 +85,7 @@ class Contribute extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { outStep, inStep, tags } = this.state
+    const { outStep, inStep, tags, boxes } = this.state
 
     return (
       <Container>
@@ -118,7 +120,11 @@ class Contribute extends React.Component {
           <Intro onNext={this.handleOutStepNext} />
           <div className={classes.innerRoot}>
             <div className={classes.innerLeft}>
-              <Picture onlyOne disabled={inStep !== 1} />
+              <Picture
+                onlyOne
+                onChange={this.handlePictureChange}
+                disabled={inStep !== 1}
+              />
               <div className={classes.tags}>
                 {Object.values(tags)
                   .filter(t => t)
@@ -137,7 +143,10 @@ class Contribute extends React.Component {
                   onEndForm={this.handleOutStepEnd}
                   setTag={this.handleSetTag}
                 />
-                <Crop onNext={this.handleInStepNext} />
+                <Crop
+                  onNext={this.handleInStepNext}
+                  disabled={boxes.length === 0}
+                />
                 <WhatColor
                   onNext={this.handleInStepNext}
                   setTag={this.handleSetTag}

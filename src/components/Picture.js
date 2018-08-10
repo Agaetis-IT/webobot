@@ -124,20 +124,26 @@ class Picture extends React.Component {
 
   _onPointerUp = () => {
     const { currentBox } = this.state
-    const { disabled, onlyOne } = this.props
+    const { disabled, onlyOne, onChange } = this.props
     if (disabled) {
       return
     }
 
     if (currentBox.x1 && currentBox.y1 && this._getCurrentBoxArea() > 1000) {
       if (onlyOne) {
-        this.setState({
-          customBoxes: [this._getTfCoord()],
+        this.setState(() => {
+          const nextCustomBoxes = [this._getTfCoord()]
+          onChange(nextCustomBoxes)
+          return { customBoxes: nextCustomBoxes }
         })
       } else {
-        this.setState(({ customBoxes }) => ({
-          customBoxes: [...customBoxes, this._getTfCoord()],
-        }))
+        this.setState(({ customBoxes }) => {
+          const nextCustomBoxes = [...customBoxes, this._getTfCoord()]
+          onChange(nextCustomBoxes)
+          return {
+            customBoxes: nextCustomBoxes,
+          }
+        })
       }
     }
     this.setState({ mouseDown: false })
@@ -161,9 +167,14 @@ class Picture extends React.Component {
   }
 
   _removeCustomBox = index => () => {
-    this.setState(({ customBoxes }) => ({
-      customBoxes: customBoxes.filter((_, i) => i !== index),
-    }))
+    const { onChange } = this.props
+    this.setState(({ customBoxes }) => {
+      const nextCustomBoxes = customBoxes.filter((_, i) => i !== index)
+      onChange(nextCustomBoxes)
+      return {
+        customBoxes: nextCustomBoxes,
+      }
+    })
   }
 
   render() {
@@ -243,6 +254,7 @@ Picture.propTypes = {
   editable: propTypes.bool,
   onlyOne: propTypes.bool,
   disabled: propTypes.bool,
+  onChange: propTypes.func,
   detections: propTypes.arrayOf(
     propTypes.shape({
       box: propTypes.shape({
@@ -259,6 +271,7 @@ Picture.propTypes = {
 
 Picture.defaultProps = {
   threshold: 0,
+  onChange: () => null,
 }
 
 export default withStyles(styles)(Picture)
