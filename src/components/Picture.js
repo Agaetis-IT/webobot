@@ -114,10 +114,17 @@ class Picture extends React.Component {
 
   _onPointerUp = () => {
     const { currentBox } = this.state
+    const { onlyOne } = this.props
     if (currentBox.x1 && currentBox.y1 && this._getCurrentBoxArea() > 1000) {
-      this.setState(({ customBoxes }) => ({
-        customBoxes: [...customBoxes, this._getTfCoord()],
-      }))
+      if (onlyOne) {
+        this.setState({
+          customBoxes: [this._getTfCoord()],
+        })
+      } else {
+        this.setState(({ customBoxes }) => ({
+          customBoxes: [...customBoxes, this._getTfCoord()],
+        }))
+      }
     }
     this.setState({ mouseDown: false })
   }
@@ -206,11 +213,13 @@ class Picture extends React.Component {
 
 Picture.propTypes = {
   classes: propTypes.object.isRequired,
+  className: propTypes.string,
   id: propTypes.string.isRequired,
   author: propTypes.string.isRequired,
   threshold: propTypes.number,
   showBoxes: propTypes.bool,
   editable: propTypes.bool,
+  onlyOne: propTypes.bool,
   detections: propTypes.arrayOf(
     propTypes.shape({
       box: propTypes.shape({

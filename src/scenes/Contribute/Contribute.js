@@ -118,7 +118,7 @@ class Contribute extends React.Component {
           <Intro onNext={this.handleOutStepNext} />
           <div className={classes.innerRoot}>
             <div className={classes.innerLeft}>
-              <Picture />
+              <Picture onlyOne />
               <div className={classes.tags}>
                 {Object.values(tags)
                   .filter(t => t)
