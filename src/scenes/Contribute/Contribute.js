@@ -17,6 +17,7 @@ import WhereIsIt from './questions/WhereIsIt'
 import WhatIsThePosition from './questions/WhatIsThePosition'
 import Picture from 'components/Picture'
 import Tag from 'components/Tag'
+import Crop from './questions/Crop'
 
 const styles = theme => ({
   stepper: {
@@ -89,7 +90,7 @@ class Contribute extends React.Component {
         <MobileStepper
           variant="dots"
           position="static"
-          steps={9}
+          steps={10}
           activeStep={inStep}
           className={classNames(classes.stepper, {
             [classes.invisible]: outStep === 0 || inStep === 9,
@@ -136,6 +137,7 @@ class Contribute extends React.Component {
                   onEndForm={this.handleOutStepEnd}
                   setTag={this.handleSetTag}
                 />
+                <Crop onNext={this.handleInStepNext} />
                 <WhatColor
                   onNext={this.handleInStepNext}
                   setTag={this.handleSetTag}
