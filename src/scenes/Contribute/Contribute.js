@@ -112,6 +112,7 @@ class Contribute extends React.Component {
           index={outStep}
           style={{ height: '100%' }}
           containerStyle={{ height: '100%' }}
+          disabled
         >
           <Intro onNext={this.handleOutStepNext} />
           <div className={classes.innerRoot}>
@@ -128,6 +129,7 @@ class Contribute extends React.Component {
                 index={inStep}
                 style={{ height: '100%' }}
                 containerStyle={{ height: '100%' }}
+                disabled
               >
                 <HowMany
                   onNext={this.handleInStepNext}
