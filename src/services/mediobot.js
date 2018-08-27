@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'http://mediobot.monobot.fr'
+const baseURL = 'https://mediobot.monobot.fr'
 
 // export const getPictureUrl = id => `${baseURL}/picture/image/${id}`
 export const getPictureUrl = id =>
