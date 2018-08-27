@@ -48,7 +48,7 @@ class Intro extends React.Component {
               <Highlight>Répondez</Highlight> à quelques questions.
             </Typography>
             <Typography paragraph>
-              Pas de panique, ceux sont des questions assez simples. Mais plus
+              Pas de panique, ce sont des questions assez simples. Mais plus
               vos réponses seront justes plus notre robot sera en mesure de
               faire son job.
             </Typography>
