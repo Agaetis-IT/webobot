@@ -1,7 +1,15 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import classNames from 'classnames'
-import { Button, Icon, MobileStepper, withStyles } from '@material-ui/core'
+import {
+  Button,
+  CircularProgress,
+  Icon,
+  MobileStepper,
+  withStyles,
+} from '@material-ui/core'
+import { fetchPictures } from 'services/mediobot'
+import random from 'lodash/random'
 import SwipeableViews from 'react-swipeable-views'
 import Container from 'components/Container'
 import HowMany from './questions/HowMany'
@@ -59,14 +67,29 @@ const styles = theme => ({
   tags: {
     minHeight: 64,
   },
+  progress: {
+    alignSelf: 'center',
+  },
 })
 
 class Contribute extends React.Component {
   state = {
+    pictures: [],
+    currentPicture: null,
+    fetched: false,
     outStep: 0,
     inStep: 0,
     tags: {},
     boxes: [],
+  }
+
+  async componentDidMount() {
+    const { data: pictures, status } = await fetchPictures()
+    if (status !== 200) {
+      return
+    }
+    const currentPicture = pictures[random(0, pictures.length - 1)]
+    this.setState({ pictures, currentPicture, fetched: true })
   }
 
   handlePictureChange = boxes => this.setState({ boxes })
@@ -78,14 +101,28 @@ class Contribute extends React.Component {
     this.setState(({ outStep }) => ({ outStep: outStep + 1 }))
   handleInStepNext = () =>
     this.setState(({ inStep }) => ({ inStep: inStep + 1 }))
-  handleOutStepReset = () => this.setState({ outStep: 1, inStep: 0 })
-  handleOutStepEnd = () => this.setState({ outStep: 2, inStep: 0 })
+  handleReset = () =>
+    this.setState({
+      outStep: 1,
+      inStep: 0,
+      tags: {},
+      boxes: [],
+    })
+  handleGoEnd = () => this.setState({ outStep: 1, inStep: 10 })
   handleSetTag = (key, value) =>
     this.setState(({ tags }) => ({ tags: { ...tags, [key]: value } }))
 
   render() {
     const { classes } = this.props
-    const { outStep, inStep, tags, boxes } = this.state
+    const { fetched, currentPicture, outStep, inStep, tags, boxes } = this.state
+
+    if (!fetched) {
+      return (
+        <Container>
+          <CircularProgress className={classes.progress} size={64} />
+        </Container>
+      )
+    }
 
     return (
       <Container>
@@ -122,6 +159,9 @@ class Contribute extends React.Component {
             <div className={classes.innerLeft}>
               <Picture
                 onlyOne
+                id={currentPicture.id}
+                author={currentPicture.author}
+                detections={currentPicture.detections}
                 onChange={this.handlePictureChange}
                 disabled={inStep !== 1}
               />
@@ -140,7 +180,7 @@ class Contribute extends React.Component {
               >
                 <HowMany
                   onNext={this.handleInStepNext}
-                  onEndForm={this.handleOutStepEnd}
+                  onEndForm={this.handleGoEnd}
                   setTag={this.handleSetTag}
                 />
                 <Crop
@@ -180,7 +220,7 @@ class Contribute extends React.Component {
                   setTag={this.handleSetTag}
                 />
 
-                <Thanks onReset={this.handleOutStepReset} />
+                <Thanks onReset={this.handleReset} />
               </SwipeableViews>
             </div>
           </div>
