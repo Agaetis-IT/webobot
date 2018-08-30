@@ -163,7 +163,7 @@ class Contribute extends React.Component {
           steps={10}
           activeStep={inStep}
           className={classNames(classes.stepper, {
-            [classes.invisible]: outStep === 0 || inStep === 9,
+            [classes.invisible]: outStep === 0 || inStep === 10,
           })}
           backButton={
             <Button
