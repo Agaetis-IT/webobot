@@ -101,14 +101,19 @@ class Contribute extends React.Component {
   handleOutStepNext = () =>
     this.setState(({ outStep }) => ({ outStep: outStep + 1 }))
 
-  handleReset = () =>
+  handleReset = () => {
+    const { pictures } = this.state
+    const currentPicture = pictures[random(0, pictures.length - 1)]
+
     this.setState({
       outStep: 1,
       inStep: 0,
       answers: [],
       tags: {},
       boxes: [],
+      currentPicture,
     })
+  }
 
   handleGoEnd = question => value =>
     this.setState(({ answers }) => ({
