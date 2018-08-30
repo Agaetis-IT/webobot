@@ -162,6 +162,7 @@ class Contribute extends React.Component {
                 id={currentPicture.id}
                 author={currentPicture.author}
                 detections={currentPicture.detections}
+                value={boxes}
                 onChange={this.handlePictureChange}
                 disabled={inStep !== 1}
               />

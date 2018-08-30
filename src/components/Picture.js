@@ -51,6 +51,15 @@ class Picture extends React.Component {
     window.removeEventListener('resize', this._onResize)
   }
 
+  static getDerivedStateFromProps({ value }, { customBoxes }) {
+    if (value !== customBoxes) {
+      return {
+        customBoxes: value,
+      }
+    }
+    return null
+  }
+
   _onResize = () => {
     const { offsetHeight, offsetWidth } = this.imageRef.current
     this.setState({
@@ -253,6 +262,7 @@ Picture.propTypes = {
   onlyOne: propTypes.bool,
   disabled: propTypes.bool,
   onChange: propTypes.func,
+  value: propTypes.array,
   detections: propTypes.arrayOf(
     propTypes.shape({
       box: propTypes.shape({
@@ -270,6 +280,7 @@ Picture.propTypes = {
 Picture.defaultProps = {
   threshold: 0,
   onChange: () => null,
+  value: [],
 }
 
 export default withStyles(styles)(Picture)
