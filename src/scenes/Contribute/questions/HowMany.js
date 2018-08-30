@@ -16,6 +16,7 @@ class HowMany extends React.Component {
   }
 
   render() {
+    const { value } = this.props
     return (
       <Layout
         Title={
@@ -26,6 +27,7 @@ class HowMany extends React.Component {
         }
       >
         <Choices
+          value={value}
           onChange={this.onChange}
           items={[
             { value: 'ONE', label: '1' },
@@ -44,6 +46,7 @@ class HowMany extends React.Component {
 HowMany.propTypes = {
   onNext: propTypes.func.isRequired,
   onEndForm: propTypes.func.isRequired,
+  value: propTypes.string,
 }
 
 export default HowMany

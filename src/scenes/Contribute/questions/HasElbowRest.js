@@ -17,6 +17,7 @@ class HasElbowRest extends React.Component {
   }
 
   render() {
+    const { value } = this.props
     return (
       <Layout
         Title={
@@ -26,6 +27,7 @@ class HasElbowRest extends React.Component {
         }
       >
         <Choices
+          value={value}
           onChange={this.onChange}
           items={[
             { value: 'YES', label: 'OUI' },
@@ -40,6 +42,7 @@ class HasElbowRest extends React.Component {
 HasElbowRest.propTypes = {
   onNext: propTypes.func.isRequired,
   setTag: propTypes.func.isRequired,
+  value: propTypes.string,
 }
 
 export default HasElbowRest

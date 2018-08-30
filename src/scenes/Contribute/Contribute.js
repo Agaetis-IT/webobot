@@ -81,6 +81,7 @@ class Contribute extends React.Component {
     inStep: 0,
     tags: {},
     boxes: [],
+    answers: {},
   }
 
   async componentDidMount() {
@@ -99,22 +100,47 @@ class Contribute extends React.Component {
     this.setState(({ inStep }) => ({ inStep: inStep - 1 }))
   handleOutStepNext = () =>
     this.setState(({ outStep }) => ({ outStep: outStep + 1 }))
-  handleInStepNext = () =>
-    this.setState(({ inStep }) => ({ inStep: inStep + 1 }))
+
   handleReset = () =>
     this.setState({
       outStep: 1,
       inStep: 0,
+      answers: [],
       tags: {},
       boxes: [],
     })
-  handleGoEnd = () => this.setState({ outStep: 1, inStep: 10 })
+
+  handleGoEnd = question => value =>
+    this.setState(({ answers }) => ({
+      outStep: 1,
+      inStep: 10,
+      answers: { ...answers, [question]: value },
+    }))
+
+  handleInStepNext = question => value =>
+    question
+      ? this.setState(({ inStep, answers }) => ({
+          inStep: inStep + 1,
+          answers: { ...answers, [question]: value },
+        }))
+      : this.setState(({ inStep }) => ({
+          inStep: inStep + 1,
+        }))
+
   handleSetTag = (key, value) =>
     this.setState(({ tags }) => ({ tags: { ...tags, [key]: value } }))
 
   render() {
     const { classes } = this.props
-    const { fetched, currentPicture, outStep, inStep, tags, boxes } = this.state
+    const {
+      fetched,
+      currentPicture,
+      outStep,
+      inStep,
+      answers,
+      tags,
+      boxes,
+    } = this.state
 
     if (!fetched) {
       return (
@@ -180,45 +206,54 @@ class Contribute extends React.Component {
                 disabled
               >
                 <HowMany
-                  onNext={this.handleInStepNext}
-                  onEndForm={this.handleGoEnd}
+                  onNext={this.handleInStepNext('HowMany')}
+                  onEndForm={this.handleGoEnd('HowMany')}
                   setTag={this.handleSetTag}
+                  value={answers['HowMany']}
                 />
                 <Crop
-                  onNext={this.handleInStepNext}
+                  onNext={this.handleInStepNext()}
                   disabled={boxes.length === 0}
                 />
                 <WhatColor
-                  onNext={this.handleInStepNext}
+                  onNext={this.handleInStepNext('WhatColor')}
                   setTag={this.handleSetTag}
+                  value={answers['WhatColor']}
                 />
                 <HasElbowRest
-                  onNext={this.handleInStepNext}
+                  onNext={this.handleInStepNext('HasElbowRest')}
                   setTag={this.handleSetTag}
+                  value={answers['HasElbowRest']}
                 />
                 <HowIsTheBack
-                  onNext={this.handleInStepNext}
+                  onNext={this.handleInStepNext('HowIsTheBack')}
                   setTag={this.handleSetTag}
+                  value={answers['HowIsTheBack']}
                 />
                 <WhatIsItsShape
-                  onNext={this.handleInStepNext}
+                  onNext={this.handleInStepNext('WhatIsItsShape')}
                   setTag={this.handleSetTag}
+                  value={answers['WhatIsItsShape']}
                 />
                 <WhatIsItsCondition
-                  onNext={this.handleInStepNext}
+                  onNext={this.handleInStepNext('WhatIsItsCondition')}
                   setTag={this.handleSetTag}
+                  value={answers['WhatIsItsCondition']}
                 />
                 <IsItCustomized
-                  onNext={this.handleInStepNext}
+                  onNext={this.handleInStepNext('IsItCustomized')}
                   setTag={this.handleSetTag}
+                  value={answers['IsItCustomized']}
                 />
                 <WhereIsIt
-                  onNext={this.handleInStepNext}
+                  onNext={this.handleInStepNext('WhereIsIt')}
                   setTag={this.handleSetTag}
+                  value={answers['WhereIsIt']}
                 />
                 <WhatIsThePosition
-                  onNext={this.handleInStepNext}
+                  onNext={this.handleInStepNext('WhatIsThePosition')}
                   setTag={this.handleSetTag}
+                  value={answers['WhatIsThePosition']}
                 />
 
                 <Thanks onReset={this.handleReset} />

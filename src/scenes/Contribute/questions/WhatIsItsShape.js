@@ -17,6 +17,7 @@ class WhatIsItsShape extends React.Component {
   }
 
   render() {
+    const { value } = this.props
     return (
       <Layout
         Title={
@@ -26,6 +27,7 @@ class WhatIsItsShape extends React.Component {
         }
       >
         <Choices
+          value={value}
           onChange={this.onChange}
           items={[
             { value: 'ROUND', label: 'ÉPAULES ARRONDIES' },
@@ -41,6 +43,7 @@ class WhatIsItsShape extends React.Component {
 WhatIsItsShape.propTypes = {
   onNext: propTypes.func.isRequired,
   setTag: propTypes.func.isRequired,
+  value: propTypes.string,
 }
 
 export default WhatIsItsShape

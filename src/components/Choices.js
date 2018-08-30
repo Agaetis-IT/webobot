@@ -21,6 +21,15 @@ class Choices extends React.Component {
     }
   }
 
+  static getDerivedStateFromProps({ value }, { selectedValue }) {
+    if (value !== selectedValue) {
+      return {
+        selectedValue: value,
+      }
+    }
+    return null
+  }
+
   onClick = (value, label) => () => {
     const { onChange } = this.props
     this.setState({ selectedValue: value })

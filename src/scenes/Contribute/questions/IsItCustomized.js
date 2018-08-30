@@ -17,6 +17,7 @@ class IsItCustomized extends React.Component {
   }
 
   render() {
+    const { value } = this.props
     return (
       <Layout
         Title={
@@ -26,6 +27,7 @@ class IsItCustomized extends React.Component {
         }
       >
         <Choices
+          value={value}
           onChange={this.onChange}
           items={[
             { value: 'YES', label: 'OUI' },
@@ -41,6 +43,7 @@ class IsItCustomized extends React.Component {
 IsItCustomized.propTypes = {
   onNext: propTypes.func.isRequired,
   setTag: propTypes.func.isRequired,
+  value: propTypes.string,
 }
 
 export default IsItCustomized

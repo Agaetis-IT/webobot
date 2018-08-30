@@ -17,6 +17,7 @@ class HowIsTheBack extends React.Component {
   }
 
   render() {
+    const { value } = this.props
     return (
       <Layout
         Title={
@@ -26,6 +27,7 @@ class HowIsTheBack extends React.Component {
         }
       >
         <Choices
+          value={value}
           onChange={this.onChange}
           items={[
             { value: 'FULL', label: 'PLEIN' },
@@ -44,6 +46,7 @@ class HowIsTheBack extends React.Component {
 HowIsTheBack.propTypes = {
   onNext: propTypes.func.isRequired,
   setTag: propTypes.func.isRequired,
+  value: propTypes.string,
 }
 
 export default HowIsTheBack
