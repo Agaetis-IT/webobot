@@ -34,6 +34,7 @@ const styles = theme => ({
   txt: {
     textShadow: theme.shadows[24],
     marginBottom: 20,
+    color: theme.palette.common.white,
   },
   startBtn: {
     fontWeight: 700,
@@ -58,12 +59,11 @@ class Hero extends Component {
         <div className={classes.container}>
           <Typography
             variant="display2"
-            color="white"
             className={classNames(classes.txt, classes.bold)}
           >
             THE<br />MONOBLOC<br />PROJECT
           </Typography>
-          <Typography variant="headline" color="white" className={classes.txt}>
+          <Typography variant="headline" className={classes.txt}>
             Apportez votre bloc à l’édifice !
           </Typography>
           <Link to="/contribute">
