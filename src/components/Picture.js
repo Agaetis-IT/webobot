@@ -111,11 +111,6 @@ class Picture extends React.Component {
     }
   }
 
-  _getCurrentBoxArea = () => {
-    const { x0, x1, y0, y1 } = this.state.currentBox
-    return Math.abs(x0 - x1) * Math.abs(y0 - y1)
-  }
-
   _getTfCoord = () => {
     const { width, height, currentBox } = this.state
     const { x0, x1, y0, y1 } = currentBox
@@ -138,7 +133,7 @@ class Picture extends React.Component {
       return
     }
 
-    if (currentBox.x1 && currentBox.y1 && this._getCurrentBoxArea() > 1000) {
+    if (currentBox.x1 && currentBox.y1) {
       if (onlyOne) {
         this.setState(() => {
           const nextCustomBoxes = [this._getTfCoord()]
@@ -156,23 +151,6 @@ class Picture extends React.Component {
       }
     }
     this.setState({ mouseDown: false })
-  }
-
-  _onPointerLeave = () => {
-    const { disabled } = this.props
-    if (disabled) {
-      return
-    }
-
-    this.setState({
-      mouseDown: false,
-      currentBox: {
-        x0: null,
-        x1: null,
-        y0: null,
-        y1: null,
-      },
-    })
   }
 
   _removeCustomBox = index => () => {
@@ -223,7 +201,6 @@ class Picture extends React.Component {
           onPointerDown={this._onPointerDown}
           onPointerUp={this._onPointerUp}
           onPointerMove={this._onPointerMove}
-          onPointerLeave={this._onPointerLeave}
           style={{ width, height }}
         >
           {imgLoaded &&
@@ -240,7 +217,6 @@ class Picture extends React.Component {
               width={width}
               height={height}
               disabled={disabled}
-              onRemove={this._removeCustomBox(index)}
             />
           ))}
           {mouseDown &&
