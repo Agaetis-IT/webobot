@@ -73,7 +73,7 @@ class Header extends React.Component {
 
     return (
       <Fragment>
-        <AppBar position="absolute" color="white">
+        <AppBar position="absolute" color="default">
           <Toolbar className={classes.toolbar}>
             <Link to="/">
               <div className={classes.titleContainer}>

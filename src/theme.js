@@ -21,14 +21,14 @@ export default createMuiTheme({
     },
   },
   overrides: {
-    MuiButton: {
-      contained: {
+    MuiAppBar: {
+      colorDefault: {
         backgroundColor: '#fff',
       },
     },
-    MuiTypography: {
-      colorWhite: {
-        color: '#fff',
+    MuiButton: {
+      contained: {
+        backgroundColor: '#fff',
       },
     },
   },
