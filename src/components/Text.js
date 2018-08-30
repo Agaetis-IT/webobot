@@ -15,7 +15,7 @@ const Text = ({ classes, children }) => (
 
 Text.propTypes = {
   classes: propTypes.object.isRequired,
-  children: propTypes.string.isRequired,
+  children: propTypes.any.isRequired,
 }
 
 export default withStyles(styles)(Text)

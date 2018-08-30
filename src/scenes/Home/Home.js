@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import propTypes from 'prop-types'
 import Hero from './Hero'
 import Title from 'components/Title'
 import Text from 'components/Text'
@@ -60,9 +59,5 @@ const Home = () => (
     </Container>
   </Fragment>
 )
-
-Home.propTypes = {
-  classes: propTypes.object.isRequired,
-}
 
 export default Home
