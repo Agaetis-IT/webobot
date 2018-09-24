@@ -183,6 +183,7 @@ class Contribute extends React.Component {
           index={outStep}
           style={{ height: '100%' }}
           containerStyle={{ height: '100%' }}
+          slideStyle={{ overflow: 'hidden%' }}
           disabled
         >
           <Intro onNext={this.handleOutStepNext} />
