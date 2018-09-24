@@ -9,3 +9,6 @@ const instance = axios.create({
 
 export const fetchPictures = () =>
   instance.get('/picture/detection/processed/success')
+
+export const postSurvey = (pictureId, survey) =>
+  instance.post(`/survey/${pictureId}`, survey)

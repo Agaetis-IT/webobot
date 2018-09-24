@@ -8,7 +8,7 @@ import {
   MobileStepper,
   withStyles,
 } from '@material-ui/core'
-import { fetchPictures } from 'services/mediobot'
+import { fetchPictures, postSurvey } from 'services/mediobot'
 import random from 'lodash/random'
 import SwipeableViews from 'react-swipeable-views'
 import Container from 'components/Container'
@@ -115,12 +115,16 @@ class Contribute extends React.Component {
     })
   }
 
-  handleGoEnd = question => value =>
+  handleGoEnd = question => value => {
+    const { currentPicture } = this.state
+    postSurvey(currentPicture.id, { tags: null, boxes: null })
+
     this.setState(({ answers }) => ({
       outStep: 1,
       inStep: 10,
       answers: { ...answers, [question]: value },
     }))
+  }
 
   handleInStepNext = question => value =>
     question
@@ -131,6 +135,15 @@ class Contribute extends React.Component {
       : this.setState(({ inStep }) => ({
           inStep: inStep + 1,
         }))
+
+  handleInStepNextAndSendSurvey = question => value => {
+    const { currentPicture, tags, boxes } = this.state
+    postSurvey(currentPicture.id, {
+      tags: Object.values(tags).filter(t => t),
+      boxes,
+    })
+    this.handleInStepNext(question)(value)
+  }
 
   handleSetTag = (key, value) =>
     this.setState(({ tags }) => ({ tags: { ...tags, [key]: value } }))
@@ -257,7 +270,9 @@ class Contribute extends React.Component {
                   value={answers['WhereIsIt']}
                 />
                 <WhatIsThePosition
-                  onNext={this.handleInStepNext('WhatIsThePosition')}
+                  onNext={this.handleInStepNextAndSendSurvey(
+                    'WhatIsThePosition'
+                  )}
                   setTag={this.handleSetTag}
                   value={answers['WhatIsThePosition']}
                 />
