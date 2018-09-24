@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core'
 import Box from './Box'
 import CustomBox from './CustomBox'
 
-const styles = {
+const styles = theme => ({
   root: {
     position: 'relative',
   },
@@ -22,7 +22,23 @@ const styles = {
   editable: {
     cursor: 'crosshair',
   },
-}
+  placeholder: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    animation: 'placeholder-animation 1s linear 0s infinite alternate',
+  },
+  '@keyframes placeholder-animation': {
+    from: {
+      backgroundColor: theme.palette.grey[500],
+    },
+    to: {
+      backgroundColor: theme.palette.grey[300],
+    },
+  },
+})
 
 class Picture extends React.Component {
   state = {
@@ -164,6 +180,12 @@ class Picture extends React.Component {
     })
   }
 
+  componentDidUpdate(nextProps) {
+    if (nextProps.id !== this.props.id) {
+      this.setState({ imgLoaded: false })
+    }
+  }
+
   render() {
     const {
       classes,
@@ -194,6 +216,7 @@ class Picture extends React.Component {
           onLoad={this._onLoad}
           ref={this.imageRef}
         />
+        {!imgLoaded && <div className={classes.placeholder} />}
         <div
           className={classnames(classes.glassPanel, {
             [classes.editable]: !disabled,
