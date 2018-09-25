@@ -214,7 +214,9 @@ class Contribute extends React.Component {
               <div className={classes.tags}>
                 {Object.values(tags)
                   .filter(t => t)
-                  .map(t => <Tag key={t}>{t}</Tag>)}
+                  .map(t => (
+                    <Tag key={t}>{t}</Tag>
+                  ))}
               </div>
             </div>
             <div className={classes.innerRight}>

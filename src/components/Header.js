@@ -43,7 +43,7 @@ const styles = theme => ({
     width: 330,
   },
   drawerHeader: {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
     paddingTop: 15,
     paddingBottom: 15,
     color: theme.palette.common.white,
